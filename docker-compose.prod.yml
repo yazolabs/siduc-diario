@@ -1,0 +1,82 @@
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile.prod
+  environment:
+    RAILS_ENV: production
+    RACK_ENV: production
+    NODE_ENV: production
+    DATABASE_HOST: postgres
+    DATABASE_PORT: 5432
+    DATABASE_NAME: ${POSTGRES_DB:-idiario_production}
+    DATABASE_USERNAME: ${POSTGRES_USER:-idiario}
+    DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-idiario}
+    REDIS_URL: redis://redis:6379
+    SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    DEVISE_SECRET_KEY: ${DEVISE_SECRET_KEY}
+    RAILS_LOG_TO_STDOUT: "true"
+    RAILS_SERVE_STATIC_FILES: "true"
+  depends_on:
+    postgres:
+      condition: service_started
+    redis:
+      condition: service_started
+
+services:
+  web:
+    <<: *app
+    container_name: idiario-web
+    command: bundle exec rails server -b 0.0.0.0 -p 3000
+    restart: always
+
+  sidekiq:
+    <<: *app
+    container_name: idiario-sidekiq
+    command: bundle exec sidekiq -c 10
+    restart: always
+
+  sidekiq-enqueue:
+    <<: *app
+    container_name: idiario-sidekiq-enqueue
+    command: bundle exec sidekiq -q synchronizer_enqueue_next_job -q synchronizer_enqueue_next_job_full -c 1
+    restart: always
+
+  sidekiq-synchronizer:
+    <<: *app
+    container_name: idiario-sidekiq-synchronizer
+    command: bundle exec sidekiq -q synchronizer -c 1
+    restart: always
+
+  sidekiq-synchronizer-full:
+    <<: *app
+    container_name: idiario-sidekiq-synchronizer-full
+    command: bundle exec sidekiq -q synchronizer_full -c 1
+    restart: always
+
+  sidekiq-critical:
+    <<: *app
+    container_name: idiario-sidekiq-critical
+    command: bundle exec sidekiq -q critical -c 1
+    restart: always
+
+  postgres:
+    container_name: idiario-postgres
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-idiario_production}
+      POSTGRES_USER: ${POSTGRES_USER:-idiario}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-idiario}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    container_name: idiario-redis
+    image: redis:7-alpine
+    volumes:
+      - redis:/data
+    restart: always
+
+volumes:
+  postgres:
+  redis:
