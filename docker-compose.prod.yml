@@ -8,9 +8,9 @@ x-app: &app
     NODE_ENV: production
     DATABASE_HOST: postgres
     DATABASE_PORT: 5432
-    DATABASE_NAME: ${POSTGRES_DB:-idiario_production}
-    DATABASE_USERNAME: ${POSTGRES_USER:-idiario}
-    DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-idiario}
+    DATABASE_USERNAME: ${POSTGRES_USER:-diario}
+    DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-diario}
+    DATABASE_NAME: ${POSTGRES_DB:-diario}
     REDIS_URL: redis://redis:6379
     SECRET_KEY_BASE: ${SECRET_KEY_BASE}
     DEVISE_SECRET_KEY: ${DEVISE_SECRET_KEY}
@@ -18,64 +18,104 @@ x-app: &app
     RAILS_SERVE_STATIC_FILES: "true"
   depends_on:
     postgres:
-      condition: service_started
+      condition: service_healthy
     redis:
-      condition: service_started
+      condition: service_healthy
 
 services:
   web:
     <<: *app
-    container_name: idiario-web
     command: bundle exec rails server -b 0.0.0.0 -p 3000
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   sidekiq:
     <<: *app
-    container_name: idiario-sidekiq
     command: bundle exec sidekiq -c 10
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   sidekiq-enqueue:
     <<: *app
-    container_name: idiario-sidekiq-enqueue
     command: bundle exec sidekiq -q synchronizer_enqueue_next_job -q synchronizer_enqueue_next_job_full -c 1
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   sidekiq-synchronizer:
     <<: *app
-    container_name: idiario-sidekiq-synchronizer
     command: bundle exec sidekiq -q synchronizer -c 1
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   sidekiq-synchronizer-full:
     <<: *app
-    container_name: idiario-sidekiq-synchronizer-full
     command: bundle exec sidekiq -q synchronizer_full -c 1
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   sidekiq-critical:
     <<: *app
-    container_name: idiario-sidekiq-critical
     command: bundle exec sidekiq -q critical -c 1
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   postgres:
-    container_name: idiario-postgres
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-idiario_production}
-      POSTGRES_USER: ${POSTGRES_USER:-idiario}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-idiario}
+      POSTGRES_DB: ${POSTGRES_DB:-diario}
+      POSTGRES_USER: ${POSTGRES_USER:-diario}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-diario}
     volumes:
       - postgres:/var/lib/postgresql/data
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -h 127.0.0.1 -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
 
   redis:
-    container_name: idiario-redis
     image: redis:7-alpine
     volumes:
       - redis:/data
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
 
 volumes:
   postgres:

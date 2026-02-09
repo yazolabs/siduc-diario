@@ -7,9 +7,7 @@ ENV APP_PATH=/app \
     BUNDLE_PATH=/box \
     RAILS_ENV=production \
     RACK_ENV=production \
-    NODE_ENV=production \
-    RAILS_LOG_TO_STDOUT=true \
-    RAILS_SERVE_STATIC_FILES=true
+    NODE_ENV=production
 
 RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
     sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
@@ -19,30 +17,33 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     build-essential \
     git \
     libpq-dev \
-    shared-mime-info \
     nodejs \
     npm \
+    shared-mime-info \
+    curl \
     ca-certificates \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g yarn
-RUN gem update --system 3.3.22
-RUN gem install bundler -v ${BUNDLER_VERSION}
+RUN gem update --system 3.3.22 && gem install bundler -v ${BUNDLER_VERSION}
 
-WORKDIR ${APP_PATH}
+WORKDIR $APP_PATH
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set without 'development test' && \
-    bundle config set deployment 'true' && \
-    bundle install --jobs 4 --retry 3
+RUN bundle config set without 'development test' \
+ && bundle config set path "$BUNDLE_PATH" \
+ && bundle install --jobs 4 --retry 3
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN bundle exec rails assets:precompile || true
+ENV SECRET_KEY_BASE=dummy
+RUN bundle exec rails assets:precompile
+
+RUN rm -rf node_modules tmp/cache
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+CMD ["bash", "-lc", "bundle exec rails server -b 0.0.0.0 -p 3000"]
