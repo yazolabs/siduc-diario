@@ -16,20 +16,23 @@ x-app: &app
     DEVISE_SECRET_KEY: ${DEVISE_SECRET_KEY}
     RAILS_LOG_TO_STDOUT: "true"
     RAILS_SERVE_STATIC_FILES: "true"
+    ENTITY_NAME: ${ENTITY_NAME:-diario}
+    ENTITY_DOMAIN: ${ENTITY_DOMAIN:-localhost}
+    ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
   depends_on:
     postgres:
       condition: service_healthy
     redis:
       condition: service_healthy
+  restart: always
 
 services:
   web:
     <<: *app
-    command: bundle exec rails server -b 0.0.0.0 -p 3000
-    restart: always
+    entrypoint: ["bash", "-lc", "./docker/entrypoint.prod.sh bundle exec rails server -b 0.0.0.0 -p 3000"]
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/ >/dev/null || exit 1"]
-      interval: 30s
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health || wget -qO- http://127.0.0.1:3000/ || exit 1"]
+      interval: 20s
       timeout: 5s
       retries: 10
       start_period: 60s
@@ -37,57 +40,52 @@ services:
   sidekiq:
     <<: *app
     command: bundle exec sidekiq -c 10
-    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
-      interval: 30s
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 30s
 
   sidekiq-enqueue:
     <<: *app
     command: bundle exec sidekiq -q synchronizer_enqueue_next_job -q synchronizer_enqueue_next_job_full -c 1
-    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
-      interval: 30s
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 30s
 
   sidekiq-synchronizer:
     <<: *app
     command: bundle exec sidekiq -q synchronizer -c 1
-    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
-      interval: 30s
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 30s
 
   sidekiq-synchronizer-full:
     <<: *app
     command: bundle exec sidekiq -q synchronizer_full -c 1
-    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
-      interval: 30s
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 30s
 
   sidekiq-critical:
     <<: *app
     command: bundle exec sidekiq -q critical -c 1
-    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q \"sidekiq\""]
-      interval: 30s
+      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 30s
 
   postgres:
     image: postgres:16-alpine
@@ -99,11 +97,11 @@ services:
       - postgres:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -h 127.0.0.1 -p 5432"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-diario} -d ${POSTGRES_DB:-diario}"]
       interval: 10s
       timeout: 5s
-      retries: 20
-      start_period: 30s
+      retries: 10
+      start_period: 20s
 
   redis:
     image: redis:7-alpine
@@ -111,10 +109,10 @@ services:
       - redis:/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 3s
-      retries: 30
+      retries: 20
       start_period: 10s
 
 volumes:

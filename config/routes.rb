@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
+  get "/health", to: proc { [200, { "Content-Type" => "text/plain" }, ["ok"]] }
   get 'worker-processses-status', to: 'sidekiq_monitor#processes_status'
 
   localized do
