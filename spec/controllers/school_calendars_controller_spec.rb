@@ -83,11 +83,11 @@ RSpec.describe SchoolCalendarsController, type: :controller do
       end
     end
 
-    context 'when the school year is still open on i-Educar' do
+    context 'when the school year is still open on SIDUC' do
       let(:year_closed_in_ieducar) { false }
       let(:opened_year) { true }
 
-      include_examples 'redirects with alert', 'Ano letivo ainda está aberto no i-Educar. Não será possível fechar.'
+      include_examples 'redirects with alert', 'Ano letivo ainda está aberto no SIDUC. Não será possível fechar.'
     end
 
     context 'when the school year is already closed' do

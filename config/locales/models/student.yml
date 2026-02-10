@@ -6,7 +6,7 @@ pt-BR:
         other: "Estudantes"
     attributes:
       student:
-        api_code: "Código no i-Educar"
+        api_code: "Código no SIDUC"
         api: "Cadastrado via API"
         avatar_url: "URL da foto"
         birth_date: "Data de nascimento"

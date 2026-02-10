@@ -1,10 +1,10 @@
 # Guia de Configuração do Claude
 
-Este guia explica como configurar adequadamente o Claude Code para o projeto i-Diário usando os arquivos CLAUDE.md e CLAUDE.local.md.
+Este guia explica como configurar adequadamente o Claude Code para o projeto Diário usando os arquivos CLAUDE.md e CLAUDE.local.md.
 
 ## Visão Geral
 
-O projeto i-Diário utiliza dois arquivos de configuração para o Claude Code:
+O projeto Diário utiliza dois arquivos de configuração para o Claude Code:
 
 1. **CLAUDE.md** - Configurações do projeto (versionado no git)
 2. **CLAUDE.local.md** - Configurações pessoais/locais (ignorado pelo git)
@@ -60,7 +60,7 @@ Todo desenvolvedor deve criar seu próprio arquivo `CLAUDE.local.md` com pelo me
 - github_issue_repo: https://github.com/portabilis/board/
 ```
 
-### Exemplo de CLAUDE.local.md para i-Diário
+### Exemplo de CLAUDE.local.md para Diário
 
 ```markdown
 ## General Claude Configs:
@@ -71,7 +71,7 @@ Todo desenvolvedor deve criar seu próprio arquivo `CLAUDE.local.md` com pelo me
 - honeybadger_project_id: 54397
 - github_issue_repo: https://github.com/portabilis/board/
 
-## Configurações Específicas do i-Diário:
+## Configurações Específicas do Diário:
 
 - entity_name: demo_entity
 - school_year: 2025
@@ -89,13 +89,13 @@ Todo desenvolvedor deve criar seu próprio arquivo `CLAUDE.local.md` com pelo me
 
 3. **Copie o template acima** e preencha com seus valores específicos:
    - Substitua `[YOUR_DATABASE_NAME]` pelo nome do seu banco de dados local (geralmente `idiario_development`)
-   - Mantenha `docker` como configuração padrão para o i-Diário
+   - Mantenha `docker` como configuração padrão para o Diário
    - Substitua `[YOUR_MACHINE_INFO]` pelos detalhes do seu sistema
 
-4. **Configure as variáveis específicas do i-Diário**:
+4. **Configure as variáveis específicas do Diário**:
    - `entity_name`: Nome da entidade para testes locais
    - `school_year`: Ano letivo atual
-   - `i_educar_api_url`: URL da API do i-Educar local
+   - `i_educar_api_url`: URL da API do SIDUC local
 
 ## Melhores Práticas
 
@@ -155,4 +155,4 @@ git commit -m "Remove CLAUDE.local.md do tracking"
 - [CLAUDE.md](../CLAUDE.md) - Configuração atual do projeto
 - [.gitignore](../.gitignore) - Verifique se CLAUDE.local.md está listado
 - [Guia de MCPs](mcp-configuration-guide.md) - Configuração dos MCP Servers recomendados
-- [Wiki do i-Diário](https://github.com/portabilis/i-diario/wiki) - Documentação completa do projeto
+- [Wiki do Diário](https://github.com/portabilis/i-diario/wiki) - Documentação completa do projeto

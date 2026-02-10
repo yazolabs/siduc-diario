@@ -1,8 +1,8 @@
-# Debug de Requisições da API i-Educar
+# Debug de Requisições da API SIDUC
 
 ## Como ativar
 
-Para ativar o log detalhado de todas as requisições feitas para a API do i-Educar, configure a variável `debug_ieducar_api` no arquivo `config/secrets.yml`:
+Para ativar o log detalhado de todas as requisições feitas para a API do SIDUC, configure a variável `debug_ieducar_api` no arquivo `config/secrets.yml`:
 
 ```yaml
 development:
@@ -37,7 +37,7 @@ Quando o debug está ativo, as seguintes informações são registradas no log:
 Todos os logs são prefixados com `[DEBUG_IEDUCAR_API]` para facilitar a filtragem:
 
 ```
-[DEBUG_IEDUCAR_API] Starting request to i-Educar API
+[DEBUG_IEDUCAR_API] Starting request to SIDUC API
 [DEBUG_IEDUCAR_API] Method: GET
 [DEBUG_IEDUCAR_API] Endpoint: https://api.ieducar.com.br/module/Api/Aluno
 [DEBUG_IEDUCAR_API] Request params: {"access_key":"xxx","secret_key":"yyy","instituicao_id":1}

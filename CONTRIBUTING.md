@@ -1,6 +1,6 @@
 # Guia de contribuição
 
-Que bom que você resolveu contribuir conosco. Obrigado! A proposta do i-Diário é
+Que bom que você resolveu contribuir conosco. Obrigado! A proposta do Diário é
 ambiciosa e precisamos de toda ajuda possível para alcançar nossos objetivos.
 Neste guia vamos explicar como funcionam os nossos processos internos e como
 podemos trabalhar juntos da melhor forma possível.
@@ -18,7 +18,7 @@ Existem diversas formas de contribuir com o projeto:
 
 ### Reportando bugs
 
-Se encontrou um bug no i-Diário você pode reportá-lo usando a ferramenta de
+Se encontrou um bug no Diário você pode reportá-lo usando a ferramenta de
 [issues do GitHub](https://github.com/portabilis/i-diario/issues). Porém antes
 de enviar seu bug é importante fazer as seguintes verificações:
 
@@ -79,7 +79,7 @@ segurança de todos que utilizam a plataforma em seu estado atual.
 
 ### Indicando melhorias
 
-Outra ótima forma de contribuir é indicando melhorias ao código do i-Diário e em
+Outra ótima forma de contribuir é indicando melhorias ao código do Diário e em
 como ele está estruturado. Se você tem qualquer ideia de como podemos melhorar
 alguma abordagem na solução de problemas, refatoração de código, melhoria em
 algum recurso ou qualquer outra coisa relacionada, siga estes passos:
@@ -136,7 +136,7 @@ interação com os outros membros da comunidade.
 ### Fazendo pull requests
 
 Depois de ter um plano de ação relativamente claro você deve estar pronto para
-contribuir com código. Para isso faça um fork do i-Diário e trabalhe em cima de
+contribuir com código. Para isso faça um fork do Diário e trabalhe em cima de
 um branch diferente de master implementando suas soluções. Para saber mais sobre
 pull requests e como eles funcionam, veja
 [este link](https://help.github.com/articles/about-pull-requests/).
@@ -166,12 +166,12 @@ para a criação de soluções mais assertivas.
 
 ### Outras formas de contribuir
 
-Se você não trabalha com código mas quer ajudar o i-Diário, existe muitas outras
+Se você não trabalha com código mas quer ajudar o Diário, existe muitas outras
 formas de contribuir:
 
 - Ajude com a documentação do projeto (mais informações em breve);
-- Fale sobre o i-Diário nas suas redes sociais, blogs, etc. Espalhe a palavra;
-- Organize eventos e dê palestras sobre o i-Diário;
+- Fale sobre o Diário nas suas redes sociais, blogs, etc. Espalhe a palavra;
+- Organize eventos e dê palestras sobre o Diário;
 - Crie material promocional como apresentações, screencasts, mídia para
   compartilhamento em redes sociais, etc;
 - Viu alguma discussão que te interessa e onde você pode acrescentar mesmo sem

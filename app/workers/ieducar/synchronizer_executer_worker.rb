@@ -17,7 +17,7 @@ class SynchronizerExecuterWorker < BaseSynchronizerWorker
       known_errors = [
         'Chave de acesso inválida!',
         'Desculpe, mas não existem escolas cadastradas',
-        'URL do i-Educar informada não é válida.'
+        'URL do SIDUC informada não é válida.'
       ]
 
       raise error unless known_errors.any? { |msg| error.message.include?(msg) }

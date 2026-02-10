@@ -1,6 +1,6 @@
 # Guia de instalação
 
-Você pode instalar o i-Diário utilizando Docker ou diretamente no seu servidor web.
+Você pode instalar o Diário utilizando Docker ou diretamente no seu servidor web.
 
 - [Dependências](#dependências)
 - [Instalação utilizando Docker](#instalação-utilizando-docker)
@@ -58,7 +58,7 @@ idiario-puma             | Use Ctrl-C to stop
 
 #### Personalizando a instalação
 
-Você pode criar um arquivo `docker-compose.override.yml` para personalizar sua instalação do i-Diário.
+Você pode criar um arquivo `docker-compose.override.yml` para personalizar sua instalação do Diário.
 
 ## Instalação em servidor web
 
@@ -143,14 +143,14 @@ nvm use 14
 npm install -g yarn
 ```
 
-Clone o repositório do i-Diário:
+Clone o repositório do Diário:
 
 ```bash
 git clone https://github.com/portabilis/i-diario.git
 cd i-diario
 ```
 
-Instale o i-Diário:
+Instale o Diário:
 
 ```bash
 bundle install
@@ -181,7 +181,7 @@ echo "bundle exec rails entity:setup NAME=idiario DOMAIN=$(hostname -I | awk '{p
 bundle exec rails entity:admin:create NAME=idiario ADMIN_PASSWORD=A123456789$
 ```
 
-Após os passos acima, o i-Diário estará completamente instalado e é preciso subir os serviços necessários para o
+Após os passos acima, o Diário estará completamente instalado e é preciso subir os serviços necessários para o
 funcionamento completo do software.
 
 ### Execução
@@ -222,9 +222,9 @@ O usuário padrão é: `admin` / A senha padrão é: `A123456789$`.
 
 Assim que realizar seu primeiro acesso **não se esqueça de alterar a senha padrão**.
 
-### Sincronização com i-Educar
+### Sincronização com SIDUC
 
-Para fazer a sincronização entre i-Educar e i-Diário é necessário configurar os dados do ambiente do i-Educar em
+Para fazer a sincronização entre SIDUC e Diário é necessário configurar os dados do ambiente do SIDUC em
 `Configurações > API de Integração`.
 
 Após configurada a integração, será exibido dois botões:
@@ -233,4 +233,4 @@ Após configurada a integração, será exibido dois botões:
 - `Sincronização completa`: ao clicar nesse botão, será feita uma sincronização de todos os dados dos últimos 2 anos.
   Este botão apenas é exibido para o usuário `admin`.
 
-_Nota: é recomendada que a sincronização seja executada diariamente para manter o i-Diário atualizado com o i-Educar_
+_Nota: é recomendada que a sincronização seja executada diariamente para manter o Diário atualizado com o SIDUC_

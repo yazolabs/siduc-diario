@@ -7,7 +7,7 @@ pt-BR:
 
     attributes:
       ieducar_api_configuration:
-        url: "URL do i-Educar"
+        url: "URL do SIDUC"
         token: "Chave de acesso"
         secret_token: "Chave secreta"
         unity_code: "Código da instituição"

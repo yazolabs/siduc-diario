@@ -1,6 +1,6 @@
 # language: pt
 
-Funcionalidade: Configuração da API i-Educar
+Funcionalidade: Configuração da API SIDUC
 
   Cenário: Atualizar configuração da api
     Dado que estou logado

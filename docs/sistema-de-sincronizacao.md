@@ -1,8 +1,8 @@
-# Sistema de Sincronização com i-Educar
+# Sistema de Sincronização com SIDUC
 
 ## Visão Geral
 
-O i-Diário sincroniza dados com o sistema i-Educar através de uma API REST. A sincronização é executada de forma assíncrona usando Sidekiq e pode ser incremental ou completa.
+O Diário sincroniza dados com o sistema SIDUC através de uma API REST. A sincronização é executada de forma assíncrona usando Sidekiq e pode ser incremental ou completa.
 
 ## Arquitetura
 
@@ -14,7 +14,7 @@ graph LR
     Controller --> Config[Configuration]
     Config --> Worker[Worker Main]
     Worker --> Sync[Synchronizer]
-    Sync --> API[i-Educar API]
+    Sync --> API[SIDUC API]
     Worker --> SubWorkers[Sub-Workers]
     
     style UI fill:#f9f,stroke:#333,stroke-width:2px
@@ -27,7 +27,7 @@ graph LR
 2. **IeducarApiSynchronization** - Registra cada execução de sincronização
 3. **Workers** - Processamento assíncrono das sincronizações
 4. **Synchronizers** - Classes que executam a sincronização de cada entidade
-5. **API Client** - Comunicação com a API do i-Educar
+5. **API Client** - Comunicação com a API do SIDUC
 
 ## Tipos de Sincronização
 
@@ -165,10 +165,10 @@ Menu: **Configurações → API de integração**
 
 ```ruby
 # Campos principais
-- url            # URL base da API do i-Educar
+- url            # URL base da API do SIDUC
 - token          # Token de acesso (access_key)
 - secret_token   # Token secreto (secret_key)
-- unity_code     # Código da unidade no i-Educar
+- unity_code     # Código da unidade no SIDUC
 ```
 
 ### Autenticação
@@ -343,7 +343,7 @@ end
 ### Dados não sincronizados
 
 1. Verificar período de sincronização
-2. Verificar se dados existem no i-Educar
+2. Verificar se dados existem no SIDUC
 3. Verificar logs de erro da sincronização
 
 ## Logs e Debugging
@@ -382,7 +382,7 @@ config.start_synchronization(User.first, Entity.first.id, true)
 
 ## Conclusão
 
-O sistema de sincronização do i-Diário permite manter os dados atualizados com o i-Educar através de processamento assíncrono. Embora funcional, o sistema atual apresenta desafios que geram reclamações frequentes dos clientes:
+O sistema de sincronização do Diário permite manter os dados atualizados com o SIDUC através de processamento assíncrono. Embora funcional, o sistema atual apresenta desafios que geram reclamações frequentes dos clientes:
 
 ### Pontos de Atenção
 

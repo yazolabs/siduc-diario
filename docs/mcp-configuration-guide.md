@@ -1,6 +1,6 @@
 # Guia de Configuração dos MCP Servers
 
-Este guia explica como configurar os MCP (Model Context Protocol) servers recomendados para o projeto i-Diário.
+Este guia explica como configurar os MCP (Model Context Protocol) servers recomendados para o projeto Diário.
 
 ## O que são MCP Servers?
 
@@ -38,7 +38,7 @@ claude mcp add-json github '{
 #### Como obter o token
 1. Acesse https://github.com/settings/tokens
 2. Clique em "Generate new token" → "Generate new token (classic)"
-3. Nome do token: "Claude Code MCP i-Diário"
+3. Nome do token: "Claude Code MCP Diário"
 4. Selecione os scopes necessários:
    - `repo` (acesso completo aos repositórios)
    - `workflow` (atualizar GitHub Actions)
@@ -47,7 +47,7 @@ claude mcp add-json github '{
 5. Clique em "Generate token"
 6. Copie o token e substitua `{seu_token_aqui}` no comando
 
-#### Casos de uso no i-Diário
+#### Casos de uso no Diário
 - Criar issues no repositório portabilis/board
 - Buscar e revisar pull requests
 - Analisar código em outros repositórios da organização
@@ -56,7 +56,7 @@ claude mcp add-json github '{
 
 ---
 
-### 2. PostgreSQL MCP Server (para i-Diário)
+### 2. PostgreSQL MCP Server (para Diário)
 
 #### Para que serve
 - Executar queries SQL diretamente
@@ -84,8 +84,8 @@ claude mcp add-json postgresql-idiario '{
 2. Verifique as credenciais no arquivo `config/database.yml`
 3. Para ambientes multi-tenant, configure cada entity conforme necessário
 
-#### Casos de uso no i-Diário
-- Analisar queries lentas de sincronização com i-Educar
+#### Casos de uso no Diário
+- Analisar queries lentas de sincronização com SIDUC
 - Verificar índices nas tabelas de frequência e notas
 - Executar queries de análise de dados educacionais
 - Debugar problemas de constraints em períodos letivos
@@ -101,7 +101,7 @@ claude mcp add-json postgresql-idiario '{
 - Analisar falhas e bugs reportados
 - Acessar logs de erro detalhados
 - Gerenciar alertas e notificações
-- Rastrear tendências de erros no i-Diário
+- Rastrear tendências de erros no Diário
 
 #### Instalação
 ```bash
@@ -126,11 +126,11 @@ claude mcp add-json honeybadger '{
 2. Faça login com sua conta da Portábilis
 3. Vá para Settings → My Account → API Authentication
 4. Clique em "Create Auth Token"
-5. Nome do token: "Claude Code MCP i-Diário"
+5. Nome do token: "Claude Code MCP Diário"
 6. Copie o token e substitua `{seu_token_aqui}` no comando
 
-#### Casos de uso no i-Diário
-- Investigar erros de sincronização com i-Educar
+#### Casos de uso no Diário
+- Investigar erros de sincronização com SIDUC
 - Analisar stack traces de exceções em produção
 - Identificar problemas recorrentes em operações batch
 - Monitorar erros de validação de dados educacionais
@@ -154,7 +154,7 @@ claude mcp add context7 -s user -- npx -y @upstash/context7-mcp
 #### Como obter o token
 **Não requer token!** Este MCP é gratuito e público.
 
-#### Casos de uso no i-Diário
+#### Casos de uso no Diário
 - Consultar documentação do Rails 5.0
 - Buscar padrões de ActiveRecord
 - Verificar APIs do Sidekiq
@@ -187,8 +187,8 @@ claude mcp add-json sequential-thinking '{
 #### Como obter o token
 **Não requer token!** Este MCP é open source e gratuito.
 
-#### Casos de uso no i-Diário
-- Debugar problemas complexos de sincronização com i-Educar
+#### Casos de uso no Diário
+- Debugar problemas complexos de sincronização com SIDUC
 - Planejar refatorações de módulos educacionais
 - Analisar arquitetura multi-tenant
 - Investigar problemas de performance em relatórios
@@ -265,7 +265,7 @@ claude mcp remove {nome_do_mcp}
 - **Rotacione tokens** periodicamente (a cada 3-6 meses)
 - **Mantenha tokens separados** por projeto quando possível
 
-## Casos de Uso Específicos do i-Diário
+## Casos de Uso Específicos do Diário
 
 ### Análise de Performance
 Combine PostgreSQL MCP + Sequential Thinking para:

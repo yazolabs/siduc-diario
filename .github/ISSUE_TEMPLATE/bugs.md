@@ -1,9 +1,9 @@
 ---
 name: "Reportar um bug"
-about: Encontrou um bug no i-Diário? Use este template!
+about: Encontrou um bug no Diário? Use este template!
 ---
 
-Olá e obrigado por nos ajudar a tornar o i-Diário um projeto mais estável. Para
+Olá e obrigado por nos ajudar a tornar o Diário um projeto mais estável. Para
 reportar seu bug use o template abaixo:
 
 **MENU:**

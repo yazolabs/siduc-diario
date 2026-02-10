@@ -78,7 +78,7 @@ module IeducarApi
       method == RequestMethods::GET ? request_params.reverse_merge!(params) : payload = params
 
       if Rails.application.secrets.debug_ieducar_api
-        Rails.logger.info "[DEBUG_IEDUCAR_API] Starting request to i-Educar API"
+        Rails.logger.info "[DEBUG_IEDUCAR_API] Starting request to SIDUC API"
         Rails.logger.info "[DEBUG_IEDUCAR_API] Method: #{method.upcase}"
         Rails.logger.info "[DEBUG_IEDUCAR_API] Endpoint: #{endpoint}"
         Rails.logger.info "[DEBUG_IEDUCAR_API] Request params: #{request_params.to_json}"
@@ -122,7 +122,7 @@ module IeducarApi
           raise NetworkException, error.message
         end
 
-        raise ApiError, 'URL do i-Educar informada não é válida.'
+        raise ApiError, 'URL do SIDUC informada não é válida.'
       rescue StandardError => error
         if Rails.application.secrets.debug_ieducar_api
           Rails.logger.error "[DEBUG_IEDUCAR_API] Error occurred: #{error.class} - #{error.message}"

@@ -7,11 +7,11 @@ Funcionalidade: Calendários letivo
 
   # TODO: Test randomly failing, need to find a solution
 
-  # Cenário: Sincronizar novos calendários letivos do i-Educar
-  #   Dado que as unidades estão sincronizadas com o i-Educar
+  # Cenário: Sincronizar novos calendários letivos do SIDUC
+  #   Dado que as unidades estão sincronizadas com o SIDUC
   #   E que acesso a listagem de calendários letivos
   #   Quando eu clicar em Sincronizar
-  #   Então poderei sincronizar novos calendários letivos do i-Educar
+  #   Então poderei sincronizar novos calendários letivos do SIDUC
 
   Cenário: Editar um calendário letivo
     Dado que existe um calendário letivo cadastrada

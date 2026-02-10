@@ -61,8 +61,8 @@ pt-BR:
 
     synchronizations:
       create:
-        notice: "Integração de alunos do i-Educar está sendo processada."
-        alert: "Integração de alunos do i-Educar não pode ser processada."
+        notice: "Integração de alunos do SIDUC está sendo processada."
+        alert: "Integração de alunos do SIDUC não pode ser processada."
 
     test_settings:
       <<: *female

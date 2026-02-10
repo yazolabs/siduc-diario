@@ -11,7 +11,7 @@ pt-BR:
         phone: "Telefone"
         email: "E-mail"
         responsible: "Responsável"
-        api_code: "Código da escola no i-Educar"
+        api_code: "Código da escola no SIDUC"
         author: "Autor"
         unit_type: "Tipo de unidade"
         address: "Endereço"
@@ -26,7 +26,7 @@ pt-BR:
 
   unity:
     help:
-      api_code: "Usaremos este código para vincular uma unidade deste sistema a uma unidade escolar do sistema i-Educar."
+      api_code: "Usaremos este código para vincular uma unidade deste sistema a uma unidade escolar do sistema SIDUC."
 
   unities:
     index:

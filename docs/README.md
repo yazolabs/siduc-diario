@@ -1,11 +1,11 @@
-# Documentação do i-Diário
+# Documentação do Diário
 
-Esta pasta contém documentação técnica detalhada sobre os principais sistemas do i-Diário.
+Esta pasta contém documentação técnica detalhada sobre os principais sistemas do Diário.
 
 ## Documentos Disponíveis
 
 ### [Sistema de Permissões](./sistema-de-permissoes.md)
-Explica como funciona o controle de acesso e permissões no i-Diário:
+Explica como funciona o controle de acesso e permissões no Diário:
 - Arquitetura de Features e Roles
 - Implementação com Pundit
 - Como adicionar novas permissões
@@ -13,7 +13,7 @@ Explica como funciona o controle de acesso e permissões no i-Diário:
 - Troubleshooting
 
 ### [Sistema de Sincronização](./sistema-de-sincronizacao.md)
-Detalha o processo de sincronização com o i-Educar:
+Detalha o processo de sincronização com o SIDUC:
 - Tipos de sincronização (incremental e completa)
 - Arquitetura de Workers e Synchronizers
 - Ordem de sincronização e dependências

@@ -1,6 +1,6 @@
 module Turnip
   module SchoolCalendarSteps
-    step 'que as unidades estão sincronizadas com o i-Educar' do
+    step 'que as unidades estão sincronizadas com o SIDUC' do
       VCR.use_cassette('unities') do
         unities = UnitiesParser.parse!(IeducarApiConfiguration.current)
         unities.each do |unity|
@@ -20,7 +20,7 @@ module Turnip
       end
     end
 
-    step 'poderei sincronizar novos calendários letivos do i-Educar' do
+    step 'poderei sincronizar novos calendários letivos do SIDUC' do
       find('#select-all-unities').trigger('click')
 
       find('button[type=submit]').trigger('click')

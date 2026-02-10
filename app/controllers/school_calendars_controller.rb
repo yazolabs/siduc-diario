@@ -83,9 +83,9 @@ class SchoolCalendarsController < ApplicationController
       ).year_closed_in_ieducar?
       respond_to do |format|
         format.html {
-          redirect_to edit_unity_path(@school_calendar.unity), alert: 'Ano letivo ainda está aberto no i-Educar. Não será possível fechar.'
+          redirect_to edit_unity_path(@school_calendar.unity), alert: 'Ano letivo ainda está aberto no SIDUC. Não será possível fechar.'
         }
-        format.js { render json: { error: 'Ano letivo ainda está aberto no i-Educar.' }, status: :unprocessable_entity }
+        format.js { render json: { error: 'Ano letivo ainda está aberto no SIDUC.' }, status: :unprocessable_entity }
       end
       return
     end

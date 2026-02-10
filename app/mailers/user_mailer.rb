@@ -18,7 +18,7 @@ class UserMailer < BaseMailer
     @password = password
     @entity_url = entity_url
 
-    mail(to: @recipient, subject: 'Bem vindo ao i-Diário!') if @recipient.present?
+    mail(to: @recipient, subject: 'Bem vindo ao Diário!') if @recipient.present?
   end
 
   def reset_password(login, first_name, email, password)
@@ -27,6 +27,6 @@ class UserMailer < BaseMailer
     @recipient = email
     @password = password
 
-    mail(to: @recipient, subject: 'Redefinição de senha i-Diário!') if @recipient.present?
+    mail(to: @recipient, subject: 'Redefinição de senha Diário!') if @recipient.present?
   end
 end

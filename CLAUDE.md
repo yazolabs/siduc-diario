@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-i-Diário is a Brazilian educational management system that replaces physical teacher diaries. It integrates with i-Educar and is maintained by Portabilis. The system manages attendance records, grades, lesson plans, and educational content for Brazilian schools.
+Diário is a Brazilian educational management system that replaces physical teacher diaries. It integrates with SIDUC and is maintained by Portabilis. The system manages attendance records, grades, lesson plans, and educational content for Brazilian schools.
 
 ## Code Standards
 

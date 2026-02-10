@@ -1,8 +1,8 @@
-# Sistema de Permissões do i-Diário
+# Sistema de Permissões do Diário
 
 ## Visão Geral
 
-O i-Diário utiliza um sistema de permissões baseado em **Features** e **Roles** (papéis), implementado com o framework **Pundit**. Este sistema permite controle granular de acesso a funcionalidades específicas do sistema.
+O Diário utiliza um sistema de permissões baseado em **Features** e **Roles** (papéis), implementado com o framework **Pundit**. Este sistema permite controle granular de acesso a funcionalidades específicas do sistema.
 
 ## Arquitetura
 
@@ -476,4 +476,4 @@ end
 
 ## Conclusão
 
-O sistema de permissões do i-Diário é flexível e permite controle fino de acesso. A combinação de features, roles e permissões específicas permite atender diferentes cenários de uso mantendo a segurança e organização do sistema.
+O sistema de permissões do Diário é flexível e permite controle fino de acesso. A combinação de features, roles e permissões específicas permite atender diferentes cenários de uso mantendo a segurança e organização do sistema.

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class BaseMailer < ApplicationMailer
-  default from: "Notificação i-Diário <#{Rails.application.secrets.NO_REPLY_ADDRESS}>".freeze
+  default from: "Notificação Diário <#{Rails.application.secrets.NO_REPLY_ADDRESS}>".freeze
   default 'IsTransactional' => 'True'
   SKIP_DOMAINS = (Rails.application.secrets.EMAIL_SKIP_DOMAINS || []).split(',').flatten.freeze
 

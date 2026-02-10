@@ -1,8 +1,8 @@
 [![Latest Release](https://img.shields.io/github/release/portabilis/i-diario.svg?label=latest%20release)](https://github.com/portabilis/i-diario/releases)
 
-# i-Diário
+# Diário
 
-Portal do professor integrado com o software livre [i-Educar](https://github.com/portabilis/i-educar).
+Portal do professor integrado com o software livre [SIDUC](https://github.com/portabilis/i-educar).
 
 ## Comunicação
 
@@ -23,12 +23,12 @@ colaboradores do projeto.
 | [Telegram](https://t.me/ieducar )                                            | - Comunicar novidades sobre o projeto<br> - Movimentar a comunidade<br>  - Falar tópicos que **não** demandem discussões profundas                                                                                 |
 
 Qualquer outro grupo de discussão não é reconhecido oficialmente pela
-comunidade i-Educar e não terá suporte da Portábilis - mantenedora do projeto.
+comunidade SIDUC e não terá suporte da Portábilis - mantenedora do projeto.
 
 ## Como contribuir
 
 Contribuições são **super bem-vindas**! Se você tem vontade de construir o
-i-Educar junto conosco, veja o nosso [guia de contribuição](./CONTRIBUTING.md)
+SIDUC junto conosco, veja o nosso [guia de contribuição](./CONTRIBUTING.md)
 onde explicamos detalhadamente como trabalhamos e de que formas você pode nos
 ajudar a alcançar nossos objetivos.
 
