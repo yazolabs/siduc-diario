@@ -12,23 +12,28 @@ ENV APP_PATH=/app \
     RAILS_SERVE_STATIC_FILES=true
 
 RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
-    sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list
+    sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list || true
 
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     bash \
-    build-essential \
+    curl \
+    procps \
+    ca-certificates \
     git \
+    build-essential \
     libpq-dev \
     postgresql-client \
     shared-mime-info \
     nodejs \
     npm \
-    ca-certificates \
-    curl \
-    procps \
+    pkg-config \
+    libffi-dev \
+    libgmp-dev \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g yarn
+
 RUN gem update --system 3.3.22 && gem install bundler -v ${BUNDLER_VERSION}
 
 WORKDIR ${APP_PATH}
@@ -43,7 +48,8 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN chmod +x ./docker/entrypoint.prod.sh
+RUN chmod +x ./docker/entrypoint.prod.sh && \
+    sed -i 's/\r$//' ./docker/entrypoint.prod.sh
 
 EXPOSE 3000
 

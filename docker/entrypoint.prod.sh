@@ -23,19 +23,19 @@ until ruby -ruri -rsocket -rtimeout -e "
   sleep 2
 done
 
-if [[ "${SKIP_DB_MIGRATE:-0}" == "1" ]]; then
-  echo "[entrypoint] skipping db:migrate (SKIP_DB_MIGRATE=1)"
+if [[ \"${SKIP_DB_MIGRATE:-0}\" == \"1\" ]]; then
+  echo \"[entrypoint] skipping db:migrate (SKIP_DB_MIGRATE=1)\"
 else
-  echo "[entrypoint] db:migrate..."
+  echo \"[entrypoint] db:migrate...\"
   bundle exec rails db:migrate
 fi
 
-if [[ "${SKIP_ASSETS_PRECOMPILE:-0}" == "1" ]]; then
-  echo "[entrypoint] skipping assets:precompile (SKIP_ASSETS_PRECOMPILE=1)"
+if [[ \"${SKIP_ASSETS_PRECOMPILE:-0}\" == \"1\" ]]; then
+  echo \"[entrypoint] skipping assets:precompile (SKIP_ASSETS_PRECOMPILE=1)\"
 else
-  echo "[entrypoint] assets:precompile..."
+  echo \"[entrypoint] assets:precompile...\"
   bundle exec rails assets:precompile
 fi
 
-echo "[entrypoint] starting: $*"
-exec "$@"
+echo \"[entrypoint] starting: $*\"
+exec \"$@\"
