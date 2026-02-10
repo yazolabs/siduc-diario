@@ -6,12 +6,13 @@ x-app: &app
     RAILS_ENV: production
     RACK_ENV: production
     NODE_ENV: production
-    DATABASE_HOST: postgres
-    DATABASE_PORT: 5432
-    DATABASE_USERNAME: ${POSTGRES_USER:-diario}
-    DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-diario}
-    DATABASE_NAME: ${POSTGRES_DB:-diario}
-    REDIS_URL: redis://redis:6379
+    DATABASE_HOST: ${DATABASE_HOST:-postgres}
+    DATABASE_PORT: ${DATABASE_PORT:-5432}
+    DATABASE_USERNAME: ${DATABASE_USERNAME:-diario}
+    DATABASE_PASSWORD: ${DATABASE_PASSWORD:-diario}
+    DATABASE_NAME: ${DATABASE_NAME:-diario}
+    DB_POOL: ${DB_POOL:-5}
+    REDIS_URL: ${REDIS_URL:-redis://redis:6379}
     SECRET_KEY_BASE: ${SECRET_KEY_BASE}
     DEVISE_SECRET_KEY: ${DEVISE_SECRET_KEY}
     RAILS_LOG_TO_STDOUT: "true"
@@ -29,19 +30,22 @@ x-app: &app
 services:
   web:
     <<: *app
-    entrypoint: ["bash", "-lc", "./docker/entrypoint.prod.sh bundle exec rails server -b 0.0.0.0 -p 3000"]
+    entrypoint: ["./docker/entrypoint.prod.sh"]
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health || wget -qO- http://127.0.0.1:3000/ || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS --max-time 3 http://127.0.0.1:3000/health || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 240s
 
   sidekiq:
     <<: *app
     command: bundle exec sidekiq -c 10
+    environment:
+      DB_POOL: 12
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq >/dev/null || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
@@ -50,8 +54,10 @@ services:
   sidekiq-enqueue:
     <<: *app
     command: bundle exec sidekiq -q synchronizer_enqueue_next_job -q synchronizer_enqueue_next_job_full -c 1
+    environment:
+      DB_POOL: 2
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq >/dev/null || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
@@ -60,8 +66,10 @@ services:
   sidekiq-synchronizer:
     <<: *app
     command: bundle exec sidekiq -q synchronizer -c 1
+    environment:
+      DB_POOL: 2
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq >/dev/null || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
@@ -70,8 +78,10 @@ services:
   sidekiq-synchronizer-full:
     <<: *app
     command: bundle exec sidekiq -q synchronizer_full -c 1
+    environment:
+      DB_POOL: 2
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq >/dev/null || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
@@ -80,8 +90,10 @@ services:
   sidekiq-critical:
     <<: *app
     command: bundle exec sidekiq -q critical -c 1
+    environment:
+      DB_POOL: 2
     healthcheck:
-      test: ["CMD-SHELL", "ps aux | grep -v grep | grep -q sidekiq"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq >/dev/null || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10
@@ -90,14 +102,14 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-diario}
-      POSTGRES_USER: ${POSTGRES_USER:-diario}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-diario}
+      POSTGRES_DB: ${DATABASE_NAME:-diario}
+      POSTGRES_USER: ${DATABASE_USERNAME:-diario}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-diario}
     volumes:
       - postgres:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-diario} -d ${POSTGRES_DB:-diario}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-diario} -d ${DATABASE_NAME:-diario}"]
       interval: 10s
       timeout: 5s
       retries: 10
